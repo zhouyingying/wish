@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<css file = '__ROOT__/App/Modules/Admin/Tpl/Public/Css/public.css'/>
+	<title>Document</title>
+</head>
+<body>
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>用户名称</th>
+			<th>上一次登录时间</th>
+			<th>上一次登录IP</th>
+			<th>状态</th>
+			<th>用户所属组别</th>
+			<th>操作</th>
+		</tr>
+		<foreach name="user" item="v">
+			<tr>
+				<td>{$v.id}</td>
+				<td>{$v.username}</td>
+				<td>{$v.logintime|date='y-m-d H:i',###}</td>
+				<td>{$v.loginip}</td>
+				<td>
+					<if condition='$v["locka"]'>锁定
+					<else/>打开
+					</if>
+				</td>
+				<td>
+					<if condition='$v["username"] eq C("RBAC_SUPERADMIN")'>
+					超级管理员
+					<else/>
+					<ul>
+						<foreach name='v.role' item='va'>
+							<li>{$va.name}({$va.remark})</li>
+						</foreach>
+					</ul>
+				</if>
+				</td>
+				<td>
+					<a href="#">锁定</a>
+				</td>
+			</tr>
+		</foreach>
+
+	</table>
+</body>
+</html>
